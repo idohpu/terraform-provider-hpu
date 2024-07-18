@@ -1,0 +1,37 @@
+#! /usr/bin/bash
+
+if [ "$USER" == "root" ]; then
+	PLUGIN_DIR="/root/.terraform.d/plugins/local.providers/local/hpu/1.0.0"
+else
+	PLUGIN_DIR="/home/$USER@hpu.edu/.terraform.d/plugins/local.providers/local/hpu/1.0.0"
+fi
+
+PLUGIN_NAME="terraform-provider-hpu"
+PROJECT_ROOT="/var/dev/plugins/terraform-provider-hpu"
+
+if [ $USER == "root" ]; then
+	HOME="/root/"
+else
+	HOME="/home/$USER@hpu.edu"
+fi
+
+# https://servian.dev/terraform-local-providers-and-registry-mirror-configuration-b963117dfffa
+
+cd $PROJECT_ROOT
+cp $PROJECT_ROOT/config/terraformrc $HOME/.terraformrc
+rm -rf $HOME/.terraform.d/plugins
+rm -rf $PROJECT_ROOT/examples/pm_hpu/.terraform
+rm -rf $PROJECT_ROOT/examples/pm_hpu/.terraform.lock.hcl
+go build -o $PLUGIN_NAME
+mkdir -p $PLUGIN_DIR/linux_amd64/
+mkdir -p $PLUGIN_DIR/x86_64/
+cp $PLUGIN_NAME $PLUGIN_DIR/linux_amd64
+cp $PLUGIN_NAME $PLUGIN_DIR/x86_64/
+
+cp -rf $PROJECT_ROOT /home/$USER@hpu.edu/GitLab
+rm -rf /home/$USER@hpu.edu/GitLab/$PLUGIN_NAME/.git
+rm -rf /home/$USER@hpu.edu/GitLab/$PLUGIN_NAME/.github
+
+cp -rf $PROJECT_ROOT /home/$USER@hpu.edu/GitHub
+rm -rf /home/$USER@hpu.edu/GitHub/$PLUGIN_NAME/.git
+rm -rf /home/$USER@hpu.edu/GitHub/$PLUGIN_NAME/.github
