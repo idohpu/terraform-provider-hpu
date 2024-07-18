@@ -34,3 +34,4 @@ rm -rf /home/$USER@hpu.edu/GitLab/$PLUGIN_NAME/.github
 
 cp -rf $PROJECT_ROOT /home/$USER@hpu.edu/GitHub
 rm -rf /home/$USER@hpu.edu/GitHub/$PLUGIN_NAME/.git
+mv -f /home/$USER@hpu.edu/GitLab/$PLUGIN_NAME/.github /home/$USER@hpu.edu/GitLab/$PLUGIN_NAME
