@@ -22,7 +22,7 @@ builds:
         goarch: "386"
       - goos: darwin
         goarch: arm
-    binary: "terraform-provider-proxmox_v{{ .Version }}"
+    binary: "terraform-provider-hpu_v{{ .Version }}"
 archives:
   - format: zip
     name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
