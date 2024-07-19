@@ -1,21 +1,24 @@
-# DO NOT EDIT - This GitHub Workflow is managed by automation
-# https://github.com/hashicorp/terraform-devex-repos
-name: Issue Comment Triage
-
+name: Close inactive issues
 on:
-  issue_comment:
-    types: [created]
+  schedule:
+    - cron: "00 11 * * *"
 
 jobs:
-  issue_comment_triage:
+  close-issues:
     runs-on: ubuntu-latest
-    env:
-      # issue_comment events are triggered by comments on issues and pull requests. Checking the
-      # value of github.event.issue.pull_request tells us whether the issue is an issue or is
-      # actually a pull request, allowing us to dynamically set the gh subcommand:
-      # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#issue_comment-on-issues-only-or-pull-requests-only
-      COMMAND: ${{ github.event.issue.pull_request && 'pr' || 'issue' }}
-      GH_TOKEN: ${{ github.token }}
+    permissions:
+      issues: write
+      pull-requests: write
     steps:
-      - name: 'Remove waiting-response on comment'
-        run: gh ${{ env.COMMAND }} edit ${{ github.event.issue.html_url }} --remove-label waiting-response
+      - uses: actions/stale@v9
+        with:
+          days-before-issue-stale: 60
+          days-before-issue-close: 5
+          stale-issue-label: "stale"
+          stale-issue-message: "This issue is stale because it has been open for 60 days with no activity. Please update the provider to the latest version and, in the issue persist, provide full configuration and debug logs"
+          close-issue-message: "This issue was closed because it has been inactive for 5 days since being marked as stale."
+          days-before-pr-stale: -1
+          days-before-pr-close: -1
+          exempt-all-assignees: true
+          exempt-issue-labels: 'bug,community feedback,documentation,enhancement,help wanted,need investigation,question,workflow'
+          exempt-pr-labels: 'bug,community feedback,documentation,enhancement,help wanted,need investigation,question,workflow'
