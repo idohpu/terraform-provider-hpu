@@ -9,7 +9,7 @@ terraform {
 
 provider "hpu" {
     pm_tls_insecure = true
-    pm_api_url = "https://ido-proxmox-pa1.hpu.edu:8006/api2/json"
+    pm_api_url = ""
     pm_api_token_id = ""
     pm_api_token_secret = ""
 }
