@@ -11,18 +11,18 @@ const (
 	tebibyte int64 = 1073741824
 )
 
-func convert_KibibytesToString(kibibytes int64) string {
-	if kibibytes%tebibyte == 0 {
-		return strconv.FormatInt(kibibytes/tebibyte, 10) + "T"
-	}
-	if kibibytes%gibibyte == 0 {
-		return strconv.FormatInt(kibibytes/gibibyte, 10) + "G"
-	}
-	if kibibytes%mebibyte == 0 {
-		return strconv.FormatInt(kibibytes/mebibyte, 10) + "M"
-	}
-	return strconv.FormatInt(kibibytes, 10) + "K"
-}
+// func convert_KibibytesToString(kibibytes int64) string {
+// 	if kibibytes%tebibyte == 0 {
+// 		return strconv.FormatInt(kibibytes/tebibyte, 10) + "T"
+// 	}
+// 	if kibibytes%gibibyte == 0 {
+// 		return strconv.FormatInt(kibibytes/gibibyte, 10) + "G"
+// 	}
+// 	if kibibytes%mebibyte == 0 {
+// 		return strconv.FormatInt(kibibytes/mebibyte, 10) + "M"
+// 	}
+// 	return strconv.FormatInt(kibibytes, 10) + "K"
+// }
 
 // Relies on the input being validated
 func convert_SizeStringToKibibytes_Unsafe(size string) int {

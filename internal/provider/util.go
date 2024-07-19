@@ -2,7 +2,6 @@ package provider
 
 import (
 	"fmt"
-	"regexp"
 	"strconv"
 
 	pxapi "github.com/Telmate/proxmox-api-go/proxmox"
@@ -17,8 +16,9 @@ const (
 
 var logLevels map[string]string
 var rootLogger zerolog.Logger
-var macAddressRegex = regexp.MustCompile(`([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}`)
-var rxIPconfig = regexp.MustCompile(`ip6?=([0-9a-fA-F:\\.]+)`)
+
+// var macAddressRegex = regexp.MustCompile(`([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}`)
+// var rxIPconfig = regexp.MustCompile(`ip6?=([0-9a-fA-F:\\.]+)`)
 
 func permissions_check(s1 []string, s2 []string) []string {
 

@@ -263,40 +263,40 @@ func getClient(pm_api_url string,
 	return client, nil
 }
 
-func resourceId(targetNode string, resType string, vmId int) string {
-	return fmt.Sprintf("%s/%s/%d", targetNode, resType, vmId)
-}
+// func resourceId(targetNode string, resType string, vmId int) string {
+// 	return fmt.Sprintf("%s/%s/%d", targetNode, resType, vmId)
+// }
 
-type pmApiLockHolder struct {
-	locked bool
-	pconf  *providerConfiguration
-}
+// type pmApiLockHolder struct {
+// 	locked bool
+// 	pconf  *providerConfiguration
+// }
 
-func (lock *pmApiLockHolder) lock() {
-	if lock.locked {
-		return
-	}
-	lock.locked = true
-	pconf := lock.pconf
-	pconf.Mutex.Lock()
-	for pconf.CurrentParallel >= pconf.MaxParallel {
-		pconf.Cond.Wait()
-	}
-	pconf.CurrentParallel++
-	pconf.Mutex.Unlock()
-}
+// func (lock *pmApiLockHolder) lock() {
+// 	if lock.locked {
+// 		return
+// 	}
+// 	lock.locked = true
+// 	pconf := lock.pconf
+// 	pconf.Mutex.Lock()
+// 	for pconf.CurrentParallel >= pconf.MaxParallel {
+// 		pconf.Cond.Wait()
+// 	}
+// 	pconf.CurrentParallel++
+// 	pconf.Mutex.Unlock()
+// }
 
-func (lock *pmApiLockHolder) unlock() {
-	if !lock.locked {
-		return
-	}
-	lock.locked = false
-	pconf := lock.pconf
-	pconf.Mutex.Lock()
-	pconf.CurrentParallel--
-	pconf.Cond.Signal()
-	pconf.Mutex.Unlock()
-}
+// func (lock *pmApiLockHolder) unlock() {
+// 	if !lock.locked {
+// 		return
+// 	}
+// 	lock.locked = false
+// 	pconf := lock.pconf
+// 	pconf.Mutex.Lock()
+// 	pconf.CurrentParallel--
+// 	pconf.Cond.Signal()
+// 	pconf.Mutex.Unlock()
+// }
 
 // func parseResourceId(resId string) (targetNode string, resType string, vmId int, err error) {
 // 	// create a logger for this function
